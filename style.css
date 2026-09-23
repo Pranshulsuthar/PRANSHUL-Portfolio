@@ -558,7 +558,7 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 /* ============================================================
    04 WORK — HORIZONTAL SCROLL
    ============================================================ */
-.work{position:relative;height:400vh;background:var(--near)}
+.work{position:relative;height:480vh;background:var(--near)}
 .work-sticky{
   position:sticky;top:0;height:100vh;overflow:hidden;
   display:flex;flex-direction:column;
@@ -615,6 +615,56 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 .project:hover .project-tech span{border-color:rgba(255,255,255,.35);color:#e8e8e8}
 .project-info .btn{margin-top:14px;align-self:flex-start}
 
+/* PEC — coming soon project (same card chrome, status-only extras) */
+.project-meta-row{
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;
+}
+.project-meta-row .project-name{margin:0}
+.project-badge{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  border:1px solid rgba(255,255,255,.45);color:#f0f0f0;
+  padding:6px 12px;border-radius:30px;
+  background:rgba(255,255,255,.06);
+  white-space:nowrap;
+  animation:badgePulse 2.4s ease-in-out infinite;
+}
+@keyframes badgePulse{
+  0%,100%{border-color:rgba(255,255,255,.28);box-shadow:0 0 0 0 rgba(255,255,255,.12)}
+  50%{border-color:rgba(255,255,255,.7);box-shadow:0 0 12px 0 rgba(255,255,255,.14)}
+}
+.project-type{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;
+  color:var(--gray-dim);text-transform:uppercase;margin-top:-4px;
+}
+.project-note{
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.16em;
+  color:var(--gray);margin-top:4px;
+}
+.project-soon .project-desc{max-width:420px}
+.project-shot-soon{border-style:dashed}
+.project-soon-visual{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;text-align:center;
+  padding:24px;
+  background:
+    repeating-linear-gradient(0deg,#151515 0 1px,transparent 1px 24px),
+    repeating-linear-gradient(90deg,#151515 0 1px,transparent 1px 24px),
+    #0a0a0a;
+}
+.project-soon-pulse{
+  width:12px;height:12px;border-radius:50%;background:#fff;
+  box-shadow:0 0 0 0 rgba(255,255,255,.55);
+  animation:pulse 2.2s infinite;
+}
+.project-soon-label{
+  font-family:'Archivo',sans-serif;font-weight:800;
+  font-size:clamp(18px,2.2vw,28px);letter-spacing:.14em;color:#f2f2f2;
+}
+.project-soon-sub{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.16em;color:var(--gray-dim);
+}
+
 .project-visual{
   position:relative;overflow:hidden;display:grid;place-items:center;
   background:#0a0a0a;
@@ -652,6 +702,7 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
   .project-info{border-right:0;border-bottom:1px solid var(--line)}
   .project-visual{min-height:240px;aspect-ratio:16/10}
   .project-shot,.project:hover .project-shot{transform:none}
+  .project-soon .project-desc{max-width:none}
   .hero-main{grid-template-columns:1fr min(42vw,300px)}
   .hero-title{font-size:clamp(40px,10vw,88px)}
 }
@@ -1023,6 +1074,132 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 }
 
 /* ============================================================
+   10 — LET'S WORK TOGETHER (CONTACT FORM)
+   ============================================================ */
+.work-together{background:var(--black);border-top:1px solid var(--line)}
+.connect-grid{
+  display:grid;grid-template-columns:1fr 1.05fr;
+  gap:clamp(40px,6vw,90px);align-items:start;
+}
+.connect-title{
+  font-family:'Archivo',sans-serif;font-weight:900;
+  font-size:clamp(40px,6.5vw,92px);line-height:.95;letter-spacing:-.04em;
+  text-transform:uppercase;margin-bottom:18px;
+}
+.connect-text{color:var(--gray);font-size:clamp(15px,1.3vw,19px);line-height:1.7;max-width:440px}
+.connect-cards{display:flex;flex-direction:column;gap:12px;margin-top:clamp(28px,4vw,48px)}
+.connect-card{
+  display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;
+  gap:4px 16px;align-items:center;
+  border:1px solid var(--line);background:var(--panel);
+  padding:18px 20px;position:relative;overflow:hidden;
+  transition:border-color .45s,background .45s,transform .5s var(--ease);
+}
+.connect-card:hover{
+  border-color:var(--line-strong);background:#111;transform:translateX(8px);
+}
+.connect-card-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.22em;color:var(--gray-dim);grid-column:1;
+}
+.connect-card-value{
+  font-family:'JetBrains Mono',monospace;font-size:clamp(12px,1.1vw,14px);
+  letter-spacing:.06em;color:#eee;grid-column:1;word-break:break-all;
+}
+.connect-card-arrow{
+  grid-column:2;grid-row:1/3;font-size:18px;color:var(--gray-dim);
+  transition:transform .5s var(--ease),color .4s;
+}
+.connect-card:hover .connect-card-arrow{transform:translate(4px,-4px);color:#fff}
+
+.contact-form{
+  border:1px solid var(--line);background:var(--panel);
+  padding:clamp(24px,3vw,40px);
+  display:flex;flex-direction:column;gap:18px;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.form-label{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  letter-spacing:.2em;color:var(--gray-dim);
+}
+.form-field input,
+.form-field textarea{
+  width:100%;font-family:'Inter',sans-serif;font-size:15px;
+  color:var(--white);background:#0a0a0a;
+  border:1px solid var(--line-strong);border-radius:2px;
+  padding:14px 16px;outline:none;resize:vertical;
+  transition:border-color .35s,background .35s,box-shadow .35s;
+}
+.form-field textarea{min-height:140px;line-height:1.6}
+.form-field input::placeholder,
+.form-field textarea::placeholder{color:#4a4a4a}
+.form-field input:focus,
+.form-field textarea:focus{
+  border-color:#fff;background:#0d0d0d;
+  box-shadow:0 0 0 1px rgba(255,255,255,.12);
+}
+.form-field input.err,
+.form-field textarea.err{border-color:#666}
+.form-error{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  letter-spacing:.08em;color:#9a9a9a;min-height:0;
+  display:none;
+}
+.form-error.show{display:block}
+.form-actions{
+  display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:4px;
+}
+.form-submit{cursor:pointer}
+.form-submit:disabled{opacity:.55;pointer-events:none}
+.form-status{
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;
+  letter-spacing:.08em;color:var(--gray);line-height:1.5;
+  flex:1;min-width:160px;
+}
+.form-status.ok{color:#e8e8e8}
+.form-status.fail{color:#9a9a9a}
+
+/* ============================================================
+   SCROLL BUTTERFLIES
+   ============================================================ */
+.butterfly-layer{
+  position:fixed;inset:0;pointer-events:none;z-index:800;
+  overflow:hidden;
+}
+.butterfly{
+  position:absolute;width:36px;height:28px;
+  opacity:0;will-change:transform,opacity;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.45));
+}
+.butterfly svg{width:100%;height:100%;display:block}
+.butterfly .wing{
+  transform-origin:50% 50%;
+  animation:wingFlap .28s ease-in-out infinite alternate;
+}
+.butterfly .wing-l{animation-delay:0s}
+.butterfly .wing-r{animation-delay:0s}
+@keyframes wingFlap{
+  0%{transform:scaleX(1) skewY(0deg)}
+  100%{transform:scaleX(.35) skewY(-4deg)}
+}
+.butterfly.fly{
+  animation:butterflyFly var(--dur,2.8s) cubic-bezier(.4,0,.3,1) forwards;
+}
+@keyframes butterflyFly{
+  0%{
+    opacity:0;
+    transform:translate3d(var(--x0),var(--y0),0) rotate(var(--r0)) scale(.7);
+  }
+  12%{opacity:.92}
+  85%{opacity:.85}
+  100%{
+    opacity:0;
+    transform:translate3d(var(--x1),var(--y1),0) rotate(var(--r1)) scale(1);
+  }
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .footer{border-top:1px solid var(--line);background:var(--near);padding:clamp(44px,6vw,72px) 0 34px}
@@ -1057,6 +1234,151 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 .back-top:hover{color:#fff;letter-spacing:.24em}
 
 /* ============================================================
+   RESPONSIVE — desktop design preserved above
+   ============================================================ */
+@media(max-width:1200px){
+  .connect-grid{grid-template-columns:1fr;gap:48px}
+  .connect-text{max-width:none}
+}
+
+@media(max-width:1024px){
+  .form-row{grid-template-columns:1fr}
+  .hero-main{gap:24px}
+  .about-editorial{gap:22px}
+  .skills-grid{gap:36px}
+  .project{flex:0 0 min(980px,88vw)}
+}
+
+@media(max-width:900px){
+  .ach-grid{grid-template-columns:repeat(2,1fr)}
+  .code-grid{gap:36px}
+  .connect-card{padding:16px 18px}
+}
+
+@media(max-width:768px){
+  .container{padding:0 clamp(16px,5vw,28px)}
+  .section{padding:72px 0}
+  .section-head{gap:12px;font-size:11px;margin-bottom:36px;flex-wrap:wrap}
+  .section-label{white-space:normal}
+  .section-line{min-width:40px}
+
+  .hero{padding:calc(var(--nav-h) + 20px) clamp(16px,5vw,28px) 40px;min-height:auto;padding-bottom:64px}
+  .hero-main{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .hero-copy{width:100%}
+  .hero-title{font-size:clamp(38px,11vw,64px);white-space:normal}
+  .hero-title .line{white-space:normal}
+  .hero-top{justify-content:center;text-align:center}
+  .hero-loc{justify-content:center;flex-wrap:wrap;gap:14px}
+  .hero-bottom{flex-direction:column;align-items:center;text-align:center}
+  .hero-actions{align-items:center;width:100%}
+  .hero-role,.hero-tag,.hero-college{text-align:center}
+  .hero-portrait{
+    justify-self:center;order:-1;
+    width:min(72vw,300px);margin:0 auto 18px;
+  }
+  .portrait-meta-tl{left:8px}
+  .portrait-meta-br{right:8px}
+  .portrait-frame{inset:-8px}
+  .hero-portrait:hover .portrait-frame{inset:-12px}
+
+  .about-editorial{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .about-photo{max-width:240px;margin:0 auto;width:100%}
+  .about-photo figcaption{justify-content:center;gap:16px}
+  .about-statement{text-align:center;font-size:clamp(24px,6vw,36px)}
+  .about-body{margin:0 auto;text-align:center}
+  .about-card{text-align:left}
+  .about-stats{grid-template-columns:repeat(3,1fr);gap:8px}
+  .stat{padding:14px 6px}
+
+  .skills-grid{grid-template-columns:1fr;gap:32px}
+  .skill-name{font-size:clamp(20px,5vw,28px)}
+  .skill:hover{transform:none}
+  .skill-extra{display:none}
+
+  .work{height:auto}
+  .work-sticky{position:static;height:auto;padding-bottom:40px}
+  .work-track{
+    flex-direction:column;transform:none!important;
+    padding:16px clamp(16px,5vw,28px);gap:24px;
+  }
+  .project{flex:none;width:100%;height:auto;min-height:auto}
+  .project-inner{grid-template-columns:1fr}
+  .project-info{border-right:0;border-bottom:1px solid var(--line);padding:22px 18px}
+  .project-visual{min-height:200px;aspect-ratio:16/10;padding:16px}
+  .project-shot,.project:hover .project-shot{transform:none}
+  .project-desc{max-width:none}
+  .project-meta-row{gap:10px 12px}
+  .project-badge{font-size:9.5px;padding:5px 10px}
+  .project-type{font-size:10px;letter-spacing:.08em;margin-top:0}
+  .project-note{font-size:10.5px;letter-spacing:.1em}
+  .project-soon-visual{gap:8px;padding:16px}
+
+  .timeline{padding-left:28px}
+  .timeline-item{grid-template-columns:1fr;gap:12px}
+  .timeline-content li{font-size:15px;opacity:1;transform:none}
+
+  .ach-grid{grid-template-columns:1fr}
+  .ach-wide{grid-column:span 1}
+  .ach-card{min-height:auto}
+
+  .code-grid{grid-template-columns:1fr;text-align:left}
+  .gh-stats{grid-template-columns:repeat(3,1fr)}
+  .gh-repos li{opacity:1;transform:none}
+
+  .tags-field{min-height:auto;padding:20px 0}
+  .tag{padding:12px 18px}
+  .tag-text{font-size:clamp(15px,4.2vw,22px);white-space:normal;text-align:center}
+  .tag-desc{position:static;transform:none;opacity:.75;max-width:none;margin-top:8px;display:none}
+
+  .contact{text-align:center}
+  .contact-title{font-size:clamp(40px,12vw,80px)}
+  .contact-sub{margin-left:auto;margin-right:auto}
+  .social{text-align:left}
+  .social{grid-template-columns:40px 1fr 28px;row-gap:4px;padding:18px 4px}
+  .social-label{font-size:clamp(16px,4.5vw,24px)}
+  .social-handle{grid-column:2/3;font-size:11px}
+  .social-arrow{grid-column:3;grid-row:1/3;align-self:center}
+
+  .connect-grid{grid-template-columns:1fr;gap:32px}
+  .connect-intro{text-align:center}
+  .connect-title{font-size:clamp(34px,9vw,56px)}
+  .connect-text{margin:0 auto}
+  .connect-cards{text-align:left}
+  .contact-form{padding:20px 16px}
+  .form-row{grid-template-columns:1fr}
+  .form-actions{flex-direction:column;align-items:stretch}
+  .form-submit{justify-content:center;width:100%}
+  .form-status{text-align:center;min-width:0}
+
+  .footer-top{flex-direction:column;align-items:center;text-align:center}
+  .footer-name{font-size:clamp(26px,8vw,40px)}
+  .footer-links{justify-content:center}
+  .footer-bottom{flex-direction:column;align-items:center;text-align:center}
+
+  .menu-content{padding-left:20px;padding-right:20px}
+  .menu-item-text{font-size:clamp(28px,9vw,52px)}
+  .nav-menu-btn{padding:8px 14px;font-size:10.5px}
+}
+
+@media(max-width:480px){
+  .hero-title{font-size:clamp(34px,12vw,48px)}
+  .hero-loc{flex-direction:column;gap:6px;align-items:center}
+  .btn-huge{padding:18px 28px;font-size:12px;letter-spacing:.16em}
+  .btn{padding:14px 22px;font-size:11px;gap:10px}
+  .about-stats{grid-template-columns:1fr}
+  .gh-stats{grid-template-columns:1fr}
+  .gh-stat{border-right:0;border-bottom:1px solid var(--line)}
+  .gh-stat:last-child{border-bottom:0}
+  .connect-card-value{font-size:11.5px}
+  .form-field input,.form-field textarea{font-size:16px;padding:12px 14px}
+  .butterfly{width:28px;height:22px}
+}
+
+@media(hover:none){
+  .tag:hover,.connect-card:hover,.skill:hover,.social:hover{transform:none}
+}
+
+/* ============================================================
    REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion:reduce){
@@ -1065,4 +1387,5 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
     transition-duration:.001s!important;
   }
   html{scroll-behavior:auto}
+  .butterfly-layer{display:none}
 }

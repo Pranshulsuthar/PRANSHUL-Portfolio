@@ -15,6 +15,9 @@
 <!-- SCROLL PROGRESS -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
+<!-- SCROLL BUTTERFLIES -->
+<div class="butterfly-layer" id="butterflyLayer" aria-hidden="true"></div>
+
 <!-- PRELOADER -->
 <div class="preloader" id="preloader">
   <div class="preloader-inner">
@@ -32,7 +35,7 @@
     <a href="#skills" class="nav-link" data-cursor="GO">SKILLS</a>
     <a href="#work" class="nav-link" data-cursor="GO">WORK</a>
     <a href="#journey" class="nav-link" data-cursor="GO">JOURNEY</a>
-    <a href="#contact" class="nav-link" data-cursor="GO">CONTACT</a>
+    <a href="#connect" class="nav-link">CONNECT</a>
     <button class="nav-menu-btn" id="menuBtn" data-cursor="OPEN">
       <span class="menu-btn-text">MENU</span>
       <span class="menu-btn-icon"><i></i><i></i></span>
@@ -56,6 +59,7 @@
       <a href="#journey" class="menu-item" data-index="05"><span class="menu-item-num">05</span><span class="menu-item-text">JOURNEY</span></a>
       <a href="#achievements" class="menu-item" data-index="06"><span class="menu-item-num">06</span><span class="menu-item-text">ACHIEVEMENTS</span></a>
       <a href="#contact" class="menu-item" data-index="07"><span class="menu-item-num">07</span><span class="menu-item-text">CONTACT</span></a>
+      <a href="#connect" class="menu-item" data-index="08"><span class="menu-item-num">08</span><span class="menu-item-text">HIRE ME</span></a>
     </nav>
     <div class="menu-footer">
       <a href="https://github.com/Pranshulsuthar" target="_blank" rel="noopener" data-cursor="OPEN">GITHUB</a>
@@ -357,6 +361,31 @@
           </div>
         </div>
       </article>
+
+      <article class="project project-soon" style="--accent:#cfcfcf">
+        <div class="project-inner">
+          <div class="project-info">
+            <span class="project-num">04</span>
+            <div class="project-meta-row">
+              <h3 class="project-name">PEC WEBSITE</h3>
+              <span class="project-badge">COMING SOON</span>
+            </div>
+            <p class="project-type">Full-Stack Website • AI-Powered • Coming Soon</p>
+            <p class="project-desc">An AI-powered full-stack platform for the Programming Excellence Community, featuring role-based dashboards, student-mentor management, database integration, and interactive community features. Currently under development — a large project where I’m continuously learning, building, and exploring new technologies.</p>
+            <div class="project-tech"><span>Full Stack</span><span>AI</span><span>In Development</span></div>
+            <p class="project-note">Learning • Building • Improving</p>
+          </div>
+          <div class="project-visual">
+            <div class="project-shot project-shot-soon">
+              <div class="project-soon-visual">
+                <span class="project-soon-pulse" aria-hidden="true"></span>
+                <span class="project-soon-label">IN DEVELOPMENT</span>
+                <span class="project-soon-sub">Programming Excellence Community</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -566,7 +595,7 @@
 
     <p class="contact-sub split-lines">Have an idea? Let's create something meaningful.</p>
 
-    <a href="mailto:pranshul.suthar@example.com" class="btn btn-huge magnetic reveal-up" data-cursor="CLICK">
+    <a href="mailto:sutharpranshul46@gmail.com" class="btn btn-huge magnetic reveal-up">
       <span class="btn-text">GET IN TOUCH</span><span class="btn-arrow">→</span>
     </a>
 
@@ -599,6 +628,82 @@
         <span class="social-arrow">↗</span>
         <span class="social-line" aria-hidden="true"></span>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- 10 — LET'S WORK TOGETHER (CONTACT FORM) -->
+<section class="section work-together" id="connect">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">10</span>
+      <span class="section-label">— LET'S WORK TOGETHER</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="connect-grid">
+      <div class="connect-intro">
+        <h2 class="connect-title split-lines">Let's Work Together</h2>
+        <p class="connect-text split-lines">Have a project, idea, or opportunity in mind? Feel free to reach out.</p>
+
+        <div class="connect-cards">
+          <a href="mailto:sutharpranshul46@gmail.com" class="connect-card reveal-up">
+            <span class="connect-card-label">EMAIL</span>
+            <span class="connect-card-value">sutharpranshul46@gmail.com</span>
+            <span class="connect-card-arrow">↗</span>
+          </a>
+          <a href="https://github.com/Pranshulsuthar" target="_blank" rel="noopener" class="connect-card reveal-up" style="--d:.08s">
+            <span class="connect-card-label">GITHUB</span>
+            <span class="connect-card-value">@Pranshulsuthar</span>
+            <span class="connect-card-arrow">↗</span>
+          </a>
+          <a href="https://www.linkedin.com/in/pranshul-suthar-461a51297/" target="_blank" rel="noopener" class="connect-card reveal-up" style="--d:.16s">
+            <span class="connect-card-label">LINKEDIN</span>
+            <span class="connect-card-value">Pranshul Suthar</span>
+            <span class="connect-card-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <form class="contact-form reveal-up" id="contactForm" novalidate>
+        <div class="form-row">
+          <label class="form-field">
+            <span class="form-label">Full Name</span>
+            <input type="text" name="name" id="cfName" autocomplete="name" placeholder="Your full name" required>
+            <span class="form-error" data-for="cfName"></span>
+          </label>
+          <label class="form-field">
+            <span class="form-label">Email Address</span>
+            <input type="email" name="email" id="cfEmail" autocomplete="email" placeholder="you@example.com" required>
+            <span class="form-error" data-for="cfEmail"></span>
+          </label>
+        </div>
+
+        <label class="form-field">
+          <span class="form-label">Subject</span>
+          <input type="text" name="subject" id="cfSubject" placeholder="What is this about?" required>
+          <span class="form-error" data-for="cfSubject"></span>
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">Message</span>
+          <textarea name="message" id="cfMessage" rows="6" placeholder="Tell me about your project..." required></textarea>
+          <span class="form-error" data-for="cfMessage"></span>
+        </label>
+
+        <input type="hidden" name="_subject" value="New portfolio message from sutharpranshul46@gmail.com">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary form-submit" id="formSubmitBtn">
+            <span class="btn-text">SEND MESSAGE</span>
+            <span class="btn-arrow">→</span>
+          </button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </div>
+      </form>
     </div>
   </div>
 </section>

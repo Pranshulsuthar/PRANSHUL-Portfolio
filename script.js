@@ -565,6 +565,190 @@ function initSectionFlash() {
 }
 
 /* ============================================================
+   14b. CONTACT FORM — FormSubmit ajax (no secrets)
+   ============================================================ */
+function initContactForm() {
+  const form = $('#contactForm');
+  if (!form) return;
+
+  const btn   = $('#formSubmitBtn');
+  const status = $('#formStatus');
+  const endpoint = 'https://formsubmit.co/ajax/sutharpranshul46@gmail.com';
+
+  const fields = [
+    { id: 'cfName',    msg: 'Please enter your name.' },
+    { id: 'cfEmail',   msg: 'Please enter a valid email.' },
+    { id: 'cfSubject', msg: 'Please add a subject.' },
+    { id: 'cfMessage', msg: 'Please write a message.' }
+  ];
+
+  const showErr = (id, msg) => {
+    const input = $('#' + id);
+    const err = form.querySelector(`.form-error[data-for="${id}"]`);
+    if (input) input.classList.add('err');
+    if (err) { err.textContent = msg; err.classList.add('show'); }
+  };
+  const clearErr = (id) => {
+    const input = $('#' + id);
+    const err = form.querySelector(`.form-error[data-for="${id}"]`);
+    if (input) input.classList.remove('err');
+    if (err) { err.textContent = ''; err.classList.remove('show'); }
+  };
+
+  fields.forEach(f => {
+    const el = $('#' + f.id);
+    if (el) el.addEventListener('input', () => clearErr(f.id));
+  });
+
+  const validate = () => {
+    let ok = true;
+    fields.forEach(f => clearErr(f.id));
+    const name = $('#cfName').value.trim();
+    const email = $('#cfEmail').value.trim();
+    const subject = $('#cfSubject').value.trim();
+    const message = $('#cfMessage').value.trim();
+
+    if (name.length < 2) { showErr('cfName', fields[0].msg); ok = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('cfEmail', fields[1].msg); ok = false; }
+    if (subject.length < 2) { showErr('cfSubject', fields[2].msg); ok = false; }
+    if (message.length < 8) { showErr('cfMessage', fields[3].msg); ok = false; }
+    return ok;
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validate()) {
+      status.textContent = 'Please fix the highlighted fields.';
+      status.className = 'form-status fail';
+      return;
+    }
+
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    status.className = 'form-status';
+
+    const data = {
+      name: $('#cfName').value.trim(),
+      email: $('#cfEmail').value.trim(),
+      subject: $('#cfSubject').value.trim(),
+      message: $('#cfMessage').value.trim(),
+      _subject: `Portfolio: ${$('#cfSubject').value.trim()} — from ${$('#cfName').value.trim()}`,
+      _template: 'table',
+      _captcha: 'false',
+      _honey: ''
+    };
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('bad response');
+      status.textContent = 'Message sent — I will get back to you soon.';
+      status.className = 'form-status ok';
+      form.reset();
+    } catch (_) {
+      status.textContent = 'Could not send. Email me directly at sutharpranshul46@gmail.com';
+      status.className = 'form-status fail';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}
+
+/* ============================================================
+   14c. SCROLL BUTTERFLIES — fly toward section on enter
+   ============================================================ */
+function initButterflies() {
+  if (reduced) return;
+  const layer = $('#butterflyLayer');
+  if (!layer || !('IntersectionObserver' in window)) return;
+
+  const SVG = `
+    <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g class="wing wing-l">
+        <path d="M32 24 C18 6 4 8 6 22 C7 34 20 36 32 24 Z"
+              fill="rgba(245,245,245,.78)" stroke="rgba(5,5,5,.35)" stroke-width="1"/>
+        <path d="M32 26 C22 36 10 44 8 34 C7 28 18 24 32 26 Z"
+              fill="rgba(180,180,180,.55)" stroke="rgba(5,5,5,.25)" stroke-width=".8"/>
+      </g>
+      <g class="wing wing-r">
+        <path d="M32 24 C46 6 60 8 58 22 C57 34 44 36 32 24 Z"
+              fill="rgba(245,245,245,.78)" stroke="rgba(5,5,5,.35)" stroke-width="1"/>
+        <path d="M32 26 C42 36 54 44 56 34 C57 28 46 24 32 26 Z"
+              fill="rgba(180,180,180,.55)" stroke="rgba(5,5,5,.25)" stroke-width=".8"/>
+      </g>
+      <ellipse cx="32" cy="26" rx="2.2" ry="8" fill="#1a1a1a"/>
+      <path d="M32 19 C30 14 27 11 25 10 M32 19 C34 14 37 11 39 10"
+            stroke="#1a1a1a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </svg>`;
+
+  let spawned = 0;
+  const MAX_ACTIVE = 6;
+  const active = new Set();
+
+  const spawn = (section) => {
+    if (active.size >= MAX_ACTIVE || spawned > 40) return;
+    spawned++;
+
+    const rect = section.getBoundingClientRect();
+    const targetX = rect.left + rect.width * (0.25 + Math.random() * 0.5);
+    const targetY = rect.top + Math.min(rect.height * 0.35, 220);
+    if (targetY < -80 || targetY > innerHeight + 80) return;
+
+    const fromLeft = Math.random() > 0.5;
+    const side = fromLeft ? -60 : innerWidth + 60;
+    const startY = targetY + (Math.random() * 160 - 80);
+
+    const el = document.createElement('div');
+    el.className = 'butterfly';
+    el.innerHTML = SVG;
+
+    const dur = 2.4 + Math.random() * 1.6;
+    const r0 = fromLeft ? (-20 + Math.random() * 30) : (20 + Math.random() * 30);
+    const r1 = fromLeft ? (15 + Math.random() * 25) : (-15 - Math.random() * 25);
+
+    el.style.setProperty('--x0', side + 'px');
+    el.style.setProperty('--y0', startY + 'px');
+    el.style.setProperty('--x1', targetX + 'px');
+    el.style.setProperty('--y1', targetY + 'px');
+    el.style.setProperty('--r0', r0 + 'deg');
+    el.style.setProperty('--r1', r1 + 'deg');
+    el.style.setProperty('--dur', dur + 's');
+    el.style.left = '0';
+    el.style.top = '0';
+
+    layer.appendChild(el);
+    active.add(el);
+    requestAnimationFrame(() => el.classList.add('fly'));
+
+    el.addEventListener('animationend', () => {
+      active.delete(el);
+      el.remove();
+    }, { once: true });
+
+    // safety cleanup
+    setTimeout(() => {
+      if (active.has(el)) { active.delete(el); el.remove(); }
+    }, dur * 1000 + 800);
+  };
+
+  const sections = $$('.section').filter(s => s.id && s.id !== 'hero');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting && en.intersectionRatio >= 0.25) {
+        const n = 1 + (Math.random() > 0.55 ? 1 : 0);
+        for (let i = 0; i < n; i++) setTimeout(() => spawn(en.target), i * 420);
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: [0.25, 0.4], rootMargin: '0px 0px -12% 0px' });
+
+  sections.forEach(s => io.observe(s));
+}
+
+/* ============================================================
    BOOT
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -585,6 +769,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initSocialMagnetic();
   initSkillPush();
   initSectionFlash();
+  initContactForm();
+  initButterflies();
 });
 
 })();
