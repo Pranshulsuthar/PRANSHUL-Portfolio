@@ -332,7 +332,11 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 }
 .hero-bottom{
   display:flex;justify-content:space-between;align-items:flex-end;
-  flex-wrap:wrap;gap:30px;margin-top:clamp(30px,5vh,64px);
+  flex-wrap:wrap;gap:30px;margin-top:clamp(22px,3.5vh,48px);
+}
+.hero-sub{
+  display:flex;flex-direction:column;align-items:flex-start;
+  min-width:0;
 }
 .hero-actions{
   display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vh,48px);
@@ -340,8 +344,13 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 .hero-role{
   font-family:'Archivo',sans-serif;font-weight:700;
   font-size:clamp(17px,2vw,26px);letter-spacing:-.01em;
+  margin-bottom:clamp(14px,2vh,22px);
 }
-.hero-tag{color:var(--gray);font-size:clamp(13px,1.3vw,16px);margin-top:6px;letter-spacing:.04em}
+.hero-cta{
+  align-self:flex-start;
+  margin-bottom:clamp(16px,2.2vh,26px);
+}
+.hero-tag{color:var(--gray);font-size:clamp(13px,1.3vw,16px);margin-top:0;letter-spacing:.04em}
 .hero-tag .sep{color:var(--gray-dim);margin:0 4px}
 .hero-college{
   font-family:'JetBrains Mono',monospace;font-size:11px;
@@ -819,6 +828,8 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
   .portrait-meta-br{right:0}
   .hero-bottom{flex-direction:column;align-items:flex-start}
   .hero-actions{align-items:flex-start;width:100%}
+  .hero-sub{align-items:flex-start}
+  .hero-cta{align-self:flex-start}
   .about-editorial{grid-template-columns:1fr}
   .about-photo{max-width:220px}
 }
@@ -1155,9 +1166,13 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
   overflow:hidden;
 }
 .social-label-inner{
-  display:inline-block;
+  display:inline-flex;align-items:center;gap:10px;
   transition:transform .5s var(--ease);
   will-change:transform;
+}
+.social-icon{
+  width:1.05em;height:1.05em;flex:0 0 auto;
+  color:currentColor;opacity:.9;
 }
 .social-handle{font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.1em;color:var(--gray)}
 .social-arrow{font-size:20px;color:var(--gray-dim);text-align:right;transition:color .4s,transform .5s var(--ease);opacity:.45}
@@ -1371,7 +1386,14 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
   .hero-loc{justify-content:center;flex-wrap:wrap;gap:14px}
   .hero-bottom{flex-direction:column;align-items:center;text-align:center}
   .hero-actions{align-items:center;width:100%}
+  .hero-sub{align-items:center;width:100%}
   .hero-role,.hero-tag,.hero-college{text-align:center}
+  .hero-role{margin-bottom:clamp(12px,1.8vh,18px)}
+  .hero-cta{
+    align-self:center;
+    margin-bottom:clamp(14px,2vh,22px);
+    text-align:center;
+  }
   .hero-portrait{
     justify-self:center;order:-1;
     width:min(72vw,300px);margin:0 auto 18px;
