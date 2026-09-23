@@ -644,12 +644,13 @@ function initContactForm() {
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(data)
       });
-      if (!res.ok) throw new Error('bad response');
-      status.textContent = 'Message sent — I will get back to you soon.';
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok || body.success === false) throw new Error(body.message || 'send failed');
+      status.textContent = 'Message sent — it will reach sutharpranshul46@gmail.com soon.';
       status.className = 'form-status ok';
       form.reset();
     } catch (_) {
-      status.textContent = 'Could not send. Email me directly at sutharpranshul46@gmail.com';
+      status.textContent = 'Could not send. Email me at sutharpranshul46@gmail.com';
       status.className = 'form-status fail';
     } finally {
       btn.disabled = false;
