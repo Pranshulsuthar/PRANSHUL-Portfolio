@@ -48,18 +48,18 @@
   <div class="menu-bg"></div>
   <div class="menu-content">
     <div class="menu-meta">
-      <span>NAVIGATION</span>
+      <span>MENU</span>
       <span id="menuTime">--:--</span>
     </div>
-    <nav class="menu-list">
-      <a href="#hero" class="menu-item" data-index="01"><span class="menu-item-num">01</span><span class="menu-item-text">HOME</span></a>
-      <a href="#about" class="menu-item" data-index="02"><span class="menu-item-num">02</span><span class="menu-item-text">ABOUT</span></a>
-      <a href="#skills" class="menu-item" data-index="03"><span class="menu-item-num">03</span><span class="menu-item-text">SKILLS</span></a>
-      <a href="#work" class="menu-item" data-index="04"><span class="menu-item-num">04</span><span class="menu-item-text">WORK</span></a>
-      <a href="#journey" class="menu-item" data-index="05"><span class="menu-item-num">05</span><span class="menu-item-text">JOURNEY</span></a>
-      <a href="#achievements" class="menu-item" data-index="06"><span class="menu-item-num">06</span><span class="menu-item-text">ACHIEVEMENTS</span></a>
-      <a href="#contact" class="menu-item" data-index="07"><span class="menu-item-num">07</span><span class="menu-item-text">CONTACT</span></a>
-      <a href="#connect" class="menu-item" data-index="08"><span class="menu-item-num">08</span><span class="menu-item-text">HIRE ME</span></a>
+    <nav class="menu-nav" id="menuNav">
+      <a href="#hero" class="menu-row" data-index="01"><span class="menu-row-text">HOME</span><span class="menu-row-arrow">→</span></a>
+      <a href="#about" class="menu-row" data-index="02"><span class="menu-row-text">ABOUT</span><span class="menu-row-arrow">→</span></a>
+      <a href="#skills" class="menu-row" data-index="03"><span class="menu-row-text">SKILLS</span><span class="menu-row-arrow">→</span></a>
+      <a href="#work" class="menu-row" data-index="04"><span class="menu-row-text">WORK</span><span class="menu-row-arrow">→</span></a>
+      <a href="#journey" class="menu-row" data-index="05"><span class="menu-row-text">JOURNEY</span><span class="menu-row-arrow">→</span></a>
+      <a href="#achievements" class="menu-row" data-index="06"><span class="menu-row-text">ACHIEVEMENTS</span><span class="menu-row-arrow">→</span></a>
+      <a href="#contact" class="menu-row" data-index="07"><span class="menu-row-text">CONTACT</span><span class="menu-row-arrow">→</span></a>
+      <a href="#connect" class="menu-row menu-row-cta" data-index="08"><span class="menu-row-text">HIRE ME</span><span class="menu-row-arrow">→</span></a>
     </nav>
     <div class="menu-footer">
       <a href="https://github.com/Pranshulsuthar" target="_blank" rel="noopener" data-cursor="OPEN">GITHUB</a>
@@ -675,10 +675,7 @@
         </div>
       </div>
 
-      <form class="contact-form reveal-up" id="contactForm" novalidate
-            action="https://formsubmit.co/sutharpranshul46@gmail.com"
-            method="POST"
-            target="_blank">
+      <form class="contact-form reveal-up" id="contactForm" novalidate>
         <div class="form-row">
           <label class="form-field">
             <span class="form-label">Full Name</span>
@@ -704,10 +701,7 @@
           <span class="form-error" data-for="cfMessage"></span>
         </label>
 
-        <input type="hidden" name="_subject" value="New portfolio message from sutharpranshul46@gmail.com">
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
 
         <div class="form-actions">
           <button type="submit" class="btn btn-primary form-submit" id="formSubmitBtn">
@@ -725,7 +719,7 @@
 <footer class="footer">
   <div class="container footer-inner">
     <div class="footer-top reveal-up">
-      <span class="footer-name">PRANSHUL SUTHAR</span>
+      <span class="footer-name" id="footerName" data-text="PRANSHUL SUTHAR">PRANSHUL SUTHAR</span>
       <span class="footer-meta">B.Tech IT • SKIT Jaipur</span>
     </div>
     <div class="footer-links reveal-up">

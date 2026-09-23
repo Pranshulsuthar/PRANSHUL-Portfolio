@@ -69,7 +69,7 @@ function initNav() {
   const ov   = $('#menuOverlay');
   const timeEl = $('#menuTime');
 
-  $$('.menu-item').forEach((el, i) => el.style.setProperty('--i', i));
+  $$('.menu-row').forEach((el, i) => el.style.setProperty('--i', i));
 
   const onScroll = () => {
     const y = scrollY;
@@ -84,15 +84,20 @@ function initNav() {
     ov.classList.add('open'); btn.classList.add('open');
     document.body.classList.add('no-scroll');
     $('.menu-btn-text', btn).textContent = 'CLOSE';
+    if (window.spawnMenuButterflies) window.spawnMenuButterflies();
   };
   const closeMenu = () => {
     ov.classList.remove('open'); btn.classList.remove('open');
     document.body.classList.remove('no-scroll');
     $('.menu-btn-text', btn).textContent = 'MENU';
+    $$('.menu-row-text').forEach(t => {
+      t.classList.remove('is-active');
+      $$('.tl', t).forEach(l => l.classList.remove('on', 'on-prev', 'tl-wave'));
+    });
   };
   btn.addEventListener('click', () =>
     ov.classList.contains('open') ? closeMenu() : openMenu());
-  $$('.menu-item').forEach(a => a.addEventListener('click', closeMenu));
+  $$('.menu-row').forEach(a => a.addEventListener('click', closeMenu));
   addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
   const tickTime = () => {
@@ -408,6 +413,63 @@ function initTags() {
 }
 
 /* ============================================================
+   11b. MENU ROWS — letter hover on labels
+   ============================================================ */
+function initMenuTags() {
+  const texts = $$('.menu-row-text');
+  if (!texts.length) return;
+
+  texts.forEach(textEl => {
+    const label = textEl.textContent.trim();
+    textEl.setAttribute('aria-label', label);
+    textEl.textContent = '';
+    const letters = [];
+    for (const ch of label) {
+      const s = document.createElement('span');
+      s.className = ch === ' ' ? 'tl tl-space' : 'tl';
+      s.textContent = ch === ' ' ? '\u00A0' : ch;
+      s.setAttribute('aria-hidden', 'true');
+      textEl.appendChild(s);
+      if (ch !== ' ') letters.push(s);
+    }
+
+    if (isTouch || reduced) return;
+
+    let lastIdx = -1;
+    const row = textEl.closest('.menu-row') || textEl;
+    row.addEventListener('mouseenter', () => textEl.classList.add('is-active'));
+    row.addEventListener('mouseleave', () => {
+      textEl.classList.remove('is-active');
+      letters.forEach(l => l.classList.remove('on', 'on-prev', 'tl-wave'));
+      lastIdx = -1;
+    });
+    row.addEventListener('mousemove', (e) => {
+      let nearest = -1;
+      let best = Infinity;
+      letters.forEach((l, i) => {
+        const r = l.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const d = Math.hypot(e.clientX - cx, e.clientY - cy);
+        if (d < best) { best = d; nearest = i; }
+      });
+      if (nearest === lastIdx) return;
+      lastIdx = nearest;
+      letters.forEach((l, i) => {
+        l.classList.remove('on', 'on-prev', 'tl-wave');
+        if (i === nearest) l.classList.add('on');
+        else if (Math.abs(i - nearest) === 1) l.classList.add('on-prev');
+        else if (Math.abs(i - nearest) <= 3) {
+          void l.offsetWidth;
+          l.style.animationDelay = (Math.abs(i - nearest) * 0.05) + 's';
+          l.classList.add('tl-wave');
+        }
+      });
+    });
+  });
+}
+
+/* ============================================================
    12. GITHUB PROFILE (live API + graceful fallback)
    ============================================================ */
 async function initGithub() {
@@ -565,15 +627,15 @@ function initSectionFlash() {
 }
 
 /* ============================================================
-   14b. CONTACT FORM — FormSubmit ajax (no secrets)
+   14b. CONTACT FORM — WhatsApp direct message (no secrets)
    ============================================================ */
 function initContactForm() {
   const form = $('#contactForm');
   if (!form) return;
 
-  const btn   = $('#formSubmitBtn');
+  const btn    = $('#formSubmitBtn');
   const status = $('#formStatus');
-  const endpoint = 'https://formsubmit.co/ajax/sutharpranshul46@gmail.com';
+  const WHATSAPP = '919256921690';
 
   const fields = [
     { id: 'cfName',    msg: 'Please enter your name.' },
@@ -615,7 +677,7 @@ function initContactForm() {
     return ok;
   };
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!validate()) {
       status.textContent = 'Please fix the highlighted fields.';
@@ -623,38 +685,32 @@ function initContactForm() {
       return;
     }
 
-    btn.disabled = true;
-    status.textContent = 'Sending…';
-    status.className = 'form-status';
+    const name = $('#cfName').value.trim();
+    const email = $('#cfEmail').value.trim();
+    const subject = $('#cfSubject').value.trim();
+    const message = $('#cfMessage').value.trim();
 
-    const data = {
-      name: $('#cfName').value.trim(),
-      email: $('#cfEmail').value.trim(),
-      subject: $('#cfSubject').value.trim(),
-      message: $('#cfMessage').value.trim(),
-      _subject: `Portfolio: ${$('#cfSubject').value.trim()} — from ${$('#cfName').value.trim()}`,
-      _template: 'table',
-      _captcha: 'false',
-      _honey: ''
-    };
+    const text = [
+      'HEY PRANSHUL,',
+      '',
+      'I am ' + name + '. I came across your portfolio and would like to connect with you.',
+      '',
+      'Subject: ' + subject,
+      'Email: ' + email,
+      '',
+      'Message:',
+      message,
+      '',
+      'Looking forward to hearing from you.',
+      '— ' + name
+    ].join('\n');
 
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok || body.success === false) throw new Error(body.message || 'send failed');
-      status.textContent = 'Message sent — it will reach sutharpranshul46@gmail.com soon.';
-      status.className = 'form-status ok';
-      form.reset();
-    } catch (_) {
-      status.textContent = 'Could not send. Email me at sutharpranshul46@gmail.com';
-      status.className = 'form-status fail';
-    } finally {
-      btn.disabled = false;
-    }
+    const url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text);
+    window.open(url, '_blank', 'noopener,noreferrer');
+
+    status.textContent = 'Opening WhatsApp — send the chat to reach me.';
+    status.className = 'form-status ok';
+    form.reset();
   });
 }
 
@@ -686,11 +742,11 @@ function initButterflies() {
     </svg>`;
 
   let spawned = 0;
-  const MAX_ACTIVE = 6;
+  const MAX_ACTIVE = 3;
   const active = new Set();
 
   const spawn = (section) => {
-    if (active.size >= MAX_ACTIVE || spawned > 40) return;
+    if (active.size >= MAX_ACTIVE || spawned > 18) return;
     spawned++;
 
     const rect = section.getBoundingClientRect();
@@ -735,18 +791,90 @@ function initButterflies() {
     }, dur * 1000 + 800);
   };
 
+  // menu overlay butterflies
+  window.spawnMenuButterflies = () => {
+    const ov = $('#menuOverlay');
+    if (!ov) return;
+    for (let i = 0; i < 1; i++) setTimeout(() => spawn(ov), i * 380);
+  };
+
   const sections = $$('.section').filter(s => s.id && s.id !== 'hero');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(en => {
       if (en.isIntersecting && en.intersectionRatio >= 0.25) {
-        const n = 1 + (Math.random() > 0.55 ? 1 : 0);
-        for (let i = 0; i < n; i++) setTimeout(() => spawn(en.target), i * 420);
+        if (Math.random() > 0.45) setTimeout(() => spawn(en.target), 200);
         io.unobserve(en.target);
       }
     });
   }, { threshold: [0.25, 0.4], rootMargin: '0px 0px -12% 0px' });
 
   sections.forEach(s => io.observe(s));
+}
+
+/* ============================================================
+   15. FOOTER — letter-by-letter name interaction
+   ============================================================ */
+function initFooter() {
+  const name = $('#footerName');
+  if (!name) return;
+
+  const text = name.dataset.text || name.textContent.trim();
+  name.textContent = '';
+  name.setAttribute('aria-label', text);
+
+  const letters = [];
+  for (const ch of text) {
+    const s = document.createElement('span');
+    s.className = ch === ' ' ? 'fl fl-space' : 'fl';
+    s.textContent = ch === ' ' ? '\u00A0' : ch;
+    s.setAttribute('aria-hidden', 'true');
+    name.appendChild(s);
+    if (ch !== ' ') letters.push(s);
+  }
+
+  if (isTouch || reduced) return;
+
+  let lastIdx = -1;
+  name.addEventListener('mouseenter', () => name.classList.add('is-active'));
+  name.addEventListener('mouseleave', () => {
+    name.classList.remove('is-active');
+    letters.forEach(l => l.classList.remove('on', 'on-prev', 'wave'));
+    lastIdx = -1;
+  });
+
+  name.addEventListener('mousemove', (e) => {
+    let nearest = -1;
+    let best = Infinity;
+    letters.forEach((l, i) => {
+      const r = l.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const d = Math.hypot(e.clientX - cx, e.clientY - cy);
+      if (d < best) { best = d; nearest = i; }
+    });
+    if (nearest === lastIdx) return;
+    lastIdx = nearest;
+
+    letters.forEach((l, i) => {
+      l.classList.remove('on', 'on-prev', 'wave');
+      if (i === nearest) l.classList.add('on');
+      else if (i === nearest - 1) l.classList.add('on-prev');
+      else if (i === nearest + 1) l.classList.add('on-prev');
+      else if (Math.abs(i - nearest) <= 3) {
+        l.classList.add('wave');
+        l.style.animationDelay = (Math.abs(i - nearest) * 0.05) + 's';
+      }
+    });
+  });
+
+  name.addEventListener('click', () => {
+    letters.forEach((l, i) => {
+      l.classList.remove('wave');
+      void l.offsetWidth;
+      l.style.animationDelay = (i * 0.04) + 's';
+      l.classList.add('wave');
+    });
+  });
 }
 
 /* ============================================================
@@ -764,6 +892,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWork();
   initTimeline();
   initTags();
+  initMenuTags();
   initGithub();
   initFloatPreview();
   initProjectMotion();
@@ -772,6 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSectionFlash();
   initContactForm();
   initButterflies();
+  initFooter();
 });
 
 })();
