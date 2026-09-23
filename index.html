@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pranshul Suthar — Developer Portfolio</title>
+<meta name="description" content="Pranshul Suthar — B.Tech IT student at SKIT Jaipur. Developer, Problem Solver, Builder.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-count"><span id="preCount">00</span><span class="preloader-slash">/100</span></div>
+    <div class="preloader-bar"><span id="preBar"></span></div>
+    <div class="preloader-name">PRANSHUL SUTHAR</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a href="#hero" class="nav-logo" data-cursor="HOME">PRANSHUL SUTHAR</a>
+  <nav class="nav-links">
+    <a href="#about" class="nav-link" data-cursor="GO">ABOUT</a>
+    <a href="#skills" class="nav-link" data-cursor="GO">SKILLS</a>
+    <a href="#work" class="nav-link" data-cursor="GO">WORK</a>
+    <a href="#journey" class="nav-link" data-cursor="GO">JOURNEY</a>
+    <a href="#contact" class="nav-link" data-cursor="GO">CONTACT</a>
+    <button class="nav-menu-btn" id="menuBtn" data-cursor="OPEN">
+      <span class="menu-btn-text">MENU</span>
+      <span class="menu-btn-icon"><i></i><i></i></span>
+    </button>
+  </nav>
+</header>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-bg"></div>
+  <div class="menu-content">
+    <div class="menu-meta">
+      <span>NAVIGATION</span>
+      <span id="menuTime">--:--</span>
+    </div>
+    <nav class="menu-list">
+      <a href="#hero" class="menu-item" data-index="01"><span class="menu-item-num">01</span><span class="menu-item-text">HOME</span></a>
+      <a href="#about" class="menu-item" data-index="02"><span class="menu-item-num">02</span><span class="menu-item-text">ABOUT</span></a>
+      <a href="#skills" class="menu-item" data-index="03"><span class="menu-item-num">03</span><span class="menu-item-text">SKILLS</span></a>
+      <a href="#work" class="menu-item" data-index="04"><span class="menu-item-num">04</span><span class="menu-item-text">WORK</span></a>
+      <a href="#journey" class="menu-item" data-index="05"><span class="menu-item-num">05</span><span class="menu-item-text">JOURNEY</span></a>
+      <a href="#achievements" class="menu-item" data-index="06"><span class="menu-item-num">06</span><span class="menu-item-text">ACHIEVEMENTS</span></a>
+      <a href="#contact" class="menu-item" data-index="07"><span class="menu-item-num">07</span><span class="menu-item-text">CONTACT</span></a>
+    </nav>
+    <div class="menu-footer">
+      <a href="https://github.com/Pranshulsuthar" target="_blank" rel="noopener" data-cursor="OPEN">GITHUB</a>
+      <span>JAIPUR, INDIA</span>
+      <span>© 2026</span>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- 01 HERO -->
+<section class="hero" id="hero">
+  <div class="hero-grid-lines" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-eyebrow reveal-fade">
+        <span class="dot-pulse"></span> AVAILABLE FOR WORK
+      </div>
+      <div class="hero-loc reveal-fade">
+        <span>JAIPUR, INDIA</span>
+        <span>2026</span>
+      </div>
+    </div>
+
+    <div class="hero-main">
+      <div class="hero-copy">
+        <h1 class="hero-title">
+          <span class="line-mask"><span class="line" data-parallax="0.02">PRANSHUL</span></span>
+          <span class="line-mask"><span class="line line-outline" data-parallax="-0.03">SUTHAR</span></span>
+        </h1>
+
+        <div class="hero-bottom">
+          <div class="hero-sub reveal-up">
+            <p class="hero-role">B.Tech IT Student</p>
+            <p class="hero-tag">Developer <span class="sep">•</span> Problem Solver <span class="sep">•</span> Builder</p>
+            <p class="hero-college">SKIT JAIPUR</p>
+          </div>
+          <div class="hero-actions">
+            <a href="#work" class="btn btn-primary magnetic reveal-up">
+              <span class="btn-text">EXPLORE MY WORK</span>
+              <span class="btn-arrow">→</span>
+            </a>
+            <div class="hero-scroll reveal-fade">
+              <span>SCROLL</span>
+              <div class="scroll-line"><i></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-portrait reveal-portrait" id="heroPortrait">
+        <div class="portrait-mask">
+          <img src="assets/WhatsApp Image 2026-09-23 at 11.33.23 AM.jpeg" alt="Pranshul Suthar" class="portrait-img" id="portraitImg" decoding="async">
+          <div class="portrait-grain" aria-hidden="true"></div>
+        </div>
+        <div class="portrait-meta portrait-meta-tl"><span>PRANSHUL SUTHAR</span></div>
+        <div class="portrait-meta portrait-meta-br"><span>SKIT JAIPUR · 2026</span></div>
+        <div class="portrait-frame" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 ABOUT -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-label">— ABOUT</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-main">
+        <div class="about-editorial">
+          <figure class="about-photo reveal-portrait">
+            <div class="about-photo-mask">
+              <img src="assets/WhatsApp Image 2026-09-23 at 11.36.15 AM.jpeg" alt="Pranshul Suthar portrait" loading="lazy" decoding="async">
+            </div>
+            <figcaption><span>FIG. 01</span><span>PRANSHUL SUTHAR — SKIT JAIPUR</span></figcaption>
+          </figure>
+
+          <div class="about-text">
+            <h2 class="about-statement split-lines">
+              I'm Pranshul Suthar, a B.Tech IT student who enjoys building things with code.
+            </h2>
+            <div class="about-body">
+              <p class="split-lines">I'm currently pursuing B.Tech in Information Technology at SKIT Jaipur. My interest lies in software development — from writing clean front-end interfaces to designing backend logic that actually works.</p>
+              <p class="split-lines">I spend time on web development, problem solving and DSA, and I'm continuously exploring AI/ML. What drives me most is building practical projects — real things that solve real problems instead of just tutorials.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="about-side">
+        <div class="about-card reveal-up" data-cursor="INFO">
+          <div class="about-card-row"><span class="k">INSTITUTE</span><span class="v">SKIT JAIPUR</span></div>
+          <div class="about-card-row"><span class="k">PROGRAM</span><span class="v">B.Tech — Information Technology</span></div>
+          <div class="about-card-row"><span class="k">DURATION</span><span class="v">2025 — 2029</span></div>
+          <div class="about-card-row"><span class="k">BASED IN</span><span class="v">JAIPUR, INDIA</span></div>
+        </div>
+        <div class="about-stats">
+          <div class="stat reveal-up"><span class="stat-num" data-count="4">0</span><span class="stat-label">PROJECTS BUILT</span></div>
+          <div class="stat reveal-up"><span class="stat-num" data-count="3">0</span><span class="stat-label">HACKATHONS</span></div>
+          <div class="stat reveal-up"><span class="stat-num" data-count="5">0</span><span class="stat-label">TECH STACKS</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 03 SKILLS -->
+<section class="section skills" id="skills">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-label">— SKILLS</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-group reveal-up">
+        <div class="skill-group-head">
+          <span class="skill-group-title">LANGUAGES</span>
+          <span class="skill-group-count">05</span>
+        </div>
+        <ul class="skill-list">
+          <li class="skill" data-cursor="VIEW" data-info="Object Oriented Programming|DSA|Problem Solving">
+            <span class="skill-index">01</span>
+            <span class="skill-name">C++</span>
+            <span class="skill-extra">DSA · Problem Solving</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="DOM Manipulation|Async Logic|ES6+">
+            <span class="skill-index">02</span>
+            <span class="skill-name">JavaScript</span>
+            <span class="skill-extra">DOM Manipulation · Async Logic · ES6+</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="Semantic Markup|Forms|Accessibility">
+            <span class="skill-index">03</span>
+            <span class="skill-name">HTML</span>
+            <span class="skill-extra">Semantic Markup · Forms · Accessibility</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="Layout Systems|Animations|Design Systems">
+            <span class="skill-index">04</span>
+            <span class="skill-name">CSS</span>
+            <span class="skill-extra">Layout Systems · Animations · Design Systems</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="OOP Basics|Core Syntax|Collections">
+            <span class="skill-index">05</span>
+            <span class="skill-name">Java</span>
+            <span class="skill-extra">OOP Basics · Core Syntax · Collections</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="skill-group reveal-up" style="--d:.1s">
+        <div class="skill-group-head">
+          <span class="skill-group-title">DEVELOPMENT</span>
+          <span class="skill-group-count">05</span>
+        </div>
+        <ul class="skill-list">
+          <li class="skill" data-cursor="VIEW" data-info="Components|Hooks|State Management">
+            <span class="skill-index">01</span>
+            <span class="skill-name">React</span>
+            <span class="skill-extra">Components · Hooks · State Management</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="REST Servers|Middleware|APIs">
+            <span class="skill-index">02</span>
+            <span class="skill-name">Node.js</span>
+            <span class="skill-extra">REST Servers · Middleware · APIs</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="Server Logic|Forms|CRUD Apps">
+            <span class="skill-index">03</span>
+            <span class="skill-name">PHP</span>
+            <span class="skill-extra">Server Logic · Forms · CRUD Apps</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="Schema Design|Joins|Query Optimisation">
+            <span class="skill-index">04</span>
+            <span class="skill-name">MySQL</span>
+            <span class="skill-extra">Schema Design · Joins · Query Optimisation</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="Endpoints|Auth|JSON Payloads">
+            <span class="skill-index">05</span>
+            <span class="skill-name">REST APIs</span>
+            <span class="skill-extra">Endpoints · Auth · JSON Payloads</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="skill-group reveal-up" style="--d:.2s">
+        <div class="skill-group-head">
+          <span class="skill-group-title">TOOLS</span>
+          <span class="skill-group-count">03</span>
+        </div>
+        <ul class="skill-list">
+          <li class="skill" data-cursor="VIEW" data-info="Version Control|Branching|History">
+            <span class="skill-index">01</span>
+            <span class="skill-name">FIGMA</span>
+            <span class="skill-extra">UI/UX Design · Wireframing · Prototyping</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="Pull Requests|Collaboration|Profiles">
+            <span class="skill-index">02</span>
+            <span class="skill-name">GitHub</span>
+            <span class="skill-extra">Pull Requests · Collaboration · Profiles</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+          <li class="skill" data-cursor="VIEW" data-info="Extensions|Debugging|Shortcuts">
+            <span class="skill-index">03</span>
+            <span class="skill-name">VS Code</span>
+            <span class="skill-extra">Extensions · Debugging · Shortcuts</span>
+            <span class="skill-arrow">↗</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 WORK -->
+<section class="work" id="work">
+  <div class="work-sticky">
+    <div class="container work-head">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <span class="section-label">— SELECTED WORK</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="work-progress"><span id="workProgress"></span></div>
+    </div>
+
+    <div class="work-track" id="workTrack">
+      <article class="project" style="--accent:#d8d8d8">
+        <div class="project-inner">
+          <div class="project-info">
+            <span class="project-num">01</span>
+            <h3 class="project-name">SEATSHARE</h3>
+            <p class="project-desc">Smart Seat Availability &amp; Reservation System</p>
+            <div class="project-tech"><span>Full Stack</span><span>MySQL</span><span>REST API</span></div>
+            <a href="#" class="btn btn-ghost">
+              <span class="btn-text">VIEW PROJECT</span><span class="btn-arrow">→</span>
+            </a>
+          </div>
+          <div class="project-visual">
+            <div class="project-shot">
+              <img src="assets/Screenshot 2026-09-23 120253.png" alt="SeatShare website screenshot" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project" style="--accent:#bdbdbd">
+        <div class="project-inner">
+          <div class="project-info">
+            <span class="project-num">02</span>
+            <h3 class="project-name">VANI-SETRA</h3>
+            <p class="project-desc">AI Voice Deepfake Detection System</p>
+            <div class="project-tech"><span>AI</span><span>Python</span><span>Audio ML</span></div>
+            <a href="#" class="btn btn-ghost">
+              <span class="btn-text">VIEW PROJECT</span><span class="btn-arrow">→</span>
+            </a>
+          </div>
+          <div class="project-visual">
+            <div class="project-shot">
+              <img src="assets/Screenshot 2026-09-23 120039.png" alt="Vani-Setra website screenshot" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project" style="--accent:#e6e6e6">
+        <div class="project-inner">
+          <div class="project-info">
+            <span class="project-num">03</span>
+            <h3 class="project-name">CODIXIFYY</h3>
+            <p class="project-desc">Interactive Coding Learning Platform</p>
+            <div class="project-tech"><span>Web Development</span><span>PHP</span><span>MySQL</span></div>
+            <a href="#" class="btn btn-ghost">
+              <span class="btn-text">VIEW PROJECT</span><span class="btn-arrow">→</span>
+            </a>
+          </div>
+          <div class="project-visual">
+            <div class="project-shot">
+              <img src="assets/Screenshot 2026-09-23 115637.png" alt="Codixifyy website screenshot" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 05 JOURNEY -->
+<section class="section journey" id="journey">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <span class="section-label">— JOURNEY</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="timeline" id="timeline">
+      <div class="timeline-line"><span id="timelineFill"></span></div>
+
+      <div class="timeline-item reveal-up">
+        <div class="timeline-marker"></div>
+        <div class="timeline-year">2026</div>
+        <div class="timeline-content">
+          <ul>
+            <li data-cursor="READ"><span class="tl-idx">01</span>Full Stack Web Development using AI Workshop</li>
+            <li data-cursor="READ"><span class="tl-idx">02</span>Smart India Hackathon</li>
+            <li data-cursor="READ"><span class="tl-idx">03</span>Programming Excellence Community</li>
+            <li data-cursor="READ"><span class="tl-idx">04</span>Personal Development Projects</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal-up">
+        <div class="timeline-marker"></div>
+        <div class="timeline-year">2025</div>
+        <div class="timeline-content">
+          <ul>
+            <li data-cursor="READ"><span class="tl-idx">01</span>Started B.Tech — Information Technology</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 ACHIEVEMENTS -->
+<section class="section achievements" id="achievements">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <span class="section-label">— ACHIEVEMENTS &amp; ACTIVITIES</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="ach-grid">
+      <article class="ach-card reveal-up" data-tilt data-cursor="EXPLORE">
+        <span class="ach-num">01</span>
+        <div class="ach-visual"><div class="ach-pattern p-lines"></div></div>
+        <h3 class="ach-title">Workshops</h3>
+        <p class="ach-desc">Hands-on learning through Full Stack Web Development using AI workshop — building real applications end to end.</p>
+        <span class="ach-more">Full Stack Web Dev + AI · Practical Build Sessions</span>
+      </article>
+
+      <article class="ach-card reveal-up" style="--d:.08s" data-tilt data-cursor="EXPLORE">
+        <span class="ach-num">02</span>
+        <div class="ach-visual"><div class="ach-pattern p-grid"></div></div>
+        <h3 class="ach-title">Hackathons</h3>
+        <p class="ach-desc">Competing under pressure at Smart India Hackathon — shipping working prototypes within tight time limits.</p>
+        <span class="ach-more">Smart India Hackathon · Team Prototyping</span>
+      </article>
+
+      <article class="ach-card reveal-up" style="--d:.16s" data-tilt data-cursor="EXPLORE">
+        <span class="ach-num">03</span>
+        <div class="ach-visual"><div class="ach-pattern p-dots"></div></div>
+        <h3 class="ach-title">Programming Excellence Community</h3>
+        <p class="ach-desc">As a mentor, I learn more by sharing knowledge, guiding others, and growing together through every challenge.</p>
+        <span class="ach-more">DSA · Problem Solving · Peer Learning</span>
+      </article>
+
+      <article class="ach-card reveal-up" style="--d:.24s" data-tilt data-cursor="EXPLORE">
+        <span class="ach-num">04</span>
+        <div class="ach-visual"><div class="ach-pattern p-diag"></div></div>
+        <h3 class="ach-title">College Activities</h3>
+        <p class="ach-desc">Participating in technical events and campus initiatives at SKIT Jaipur beyond the classroom.</p>
+        <span class="ach-more">Technical Events · Campus Involvement</span>
+      </article>
+
+      <article class="ach-card ach-wide reveal-up" style="--d:.32s" data-tilt data-cursor="EXPLORE">
+        <span class="ach-num">05</span>
+        <div class="ach-visual"><div class="ach-pattern p-wave"></div></div>
+        <h3 class="ach-title">Leadership / Team Projects</h3>
+        <p class="ach-desc">Leading and collaborating on team projects — dividing work, reviewing code and delivering a shared product on schedule.</p>
+        <span class="ach-more">Team Coordination · Code Review · Delivery</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 07 CODE -->
+<section class="section code" id="code">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">07</span>
+      <span class="section-label">— CODE</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="code-grid">
+      <div class="code-statement">
+        <h2 class="split-lines">I don't just write code.</h2>
+        <h2 class="split-lines code-outline">I build with it.</h2>
+        <a href="https://github.com/Pranshulsuthar" target="_blank" rel="noopener" class="btn btn-primary magnetic code-cta reveal-up" data-cursor="OPEN">
+          <span class="btn-text">EXPLORE MY CODE</span><span class="btn-arrow">→</span>
+        </a>
+      </div>
+
+      <a href="https://github.com/Pranshulsuthar" target="_blank" rel="noopener"
+         class="gh-card reveal-up" data-cursor="OPEN" id="ghCard">
+        <div class="gh-card-border" aria-hidden="true"></div>
+
+        <div class="gh-head">
+          <div class="gh-avatar">
+            <svg class="gh-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+              <path fill="currentColor" d="M12 .5C5.73.5.99 5.24.99 11.5c0 4.86 3.15 8.98 7.52 10.44.55.1.75-.24.75-.53 0-.26-.01-.95-.02-1.86-3.06.67-3.71-1.48-3.71-1.48-.5-1.28-1.23-1.62-1.23-1.62-1.01-.69.08-.67.08-.67 1.11.08 1.7 1.14 1.7 1.14.99 1.7 2.6 1.21 3.23.93.1-.72.39-1.21.7-1.49-2.44-.28-5.01-1.22-5.01-5.44 0-1.2.43-2.18 1.14-2.95-.11-.28-.5-1.4.11-2.92 0 0 .93-.3 3.05 1.13a10.6 10.6 0 0 1 5.56 0c2.12-1.43 3.04-1.13 3.04-1.13.61 1.52.23 2.64.11 2.92.71.77 1.14 1.75 1.14 2.95 0 4.23-2.58 5.16-5.03 5.43.4.34.75 1 .75 2.02 0 1.46-.01 2.64-.01 3 0 .29.2.64.76.53 4.36-1.46 7.51-5.58 7.51-10.44C23.01 5.24 18.27.5 12 .5z"/>
+            </svg>
+            <span class="gh-avatar-ring"></span>
+          </div>
+          <div class="gh-id">
+            <span class="gh-name">PRANSHUL SUTHAR</span>
+            <span class="gh-handle">@Pranshulsuthar</span>
+          </div>
+          <span class="gh-arrow">↗</span>
+        </div>
+
+        <div class="gh-stats">
+          <div class="gh-stat">
+            <span class="gh-stat-num" id="ghRepos">—</span>
+            <span class="gh-stat-label">PUBLIC REPOS</span>
+          </div>
+          <div class="gh-stat">
+            <span class="gh-stat-num" id="ghFollowers">—</span>
+            <span class="gh-stat-label">FOLLOWERS</span>
+          </div>
+          <div class="gh-stat">
+            <span class="gh-stat-num" id="ghFollowing">—</span>
+            <span class="gh-stat-label">FOLLOWING</span>
+          </div>
+        </div>
+
+        <div class="gh-block">
+          <span class="gh-block-label">PRIMARY TECHNOLOGIES</span>
+          <div class="gh-tags">
+            <span>JavaScript</span><span>PHP</span><span>MySQL</span>
+            <span>React</span><span>Python</span><span>C++</span>
+          </div>
+        </div>
+
+        <div class="gh-block">
+          <span class="gh-block-label">RECENT PROJECT HIGHLIGHTS</span>
+          <ul class="gh-repos" id="ghReposList">
+            <li><span class="gh-repo-name">seatshare</span><span class="gh-repo-meta">Full Stack · MySQL</span></li>
+            <li><span class="gh-repo-name">vani-setra</span><span class="gh-repo-meta">AI · Python</span></li>
+            <li><span class="gh-repo-name">codixifyy</span><span class="gh-repo-meta">PHP · MySQL</span></li>
+          </ul>
+        </div>
+
+        <div class="gh-foot">
+          <span>GITHUB PROFILE</span>
+          <span class="gh-foot-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 08 EXPLORING -->
+<section class="section exploring" id="exploring">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">08</span>
+      <span class="section-label">— CURRENTLY EXPLORING</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="tags-field" id="tagsField">
+      <div class="tag" data-cursor="EXPLORE" data-desc="Models, inference and practical ML workflows"><span class="tag-text">AI / ML</span></div>
+      <div class="tag" data-cursor="EXPLORE" data-desc="Algorithms, patterns and competitive problem solving"><span class="tag-text">DSA</span></div>
+      <div class="tag" data-cursor="EXPLORE" data-desc="End-to-end products from UI to database"><span class="tag-text">Full Stack Development</span></div>
+      <div class="tag" data-cursor="EXPLORE" data-desc="Servers, APIs, auth and data flow"><span class="tag-text">Backend Development</span></div>
+      <div class="tag" data-cursor="EXPLORE" data-desc="Deployment, hosting and scalable infrastructure"><span class="tag-text">Cloud</span></div>
+      <div class="tag" data-cursor="EXPLORE" data-desc="Scalability, trade-offs and architecture design"><span class="tag-text">System Design</span></div>
+      <div class="tag-desc" id="tagDesc"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 CONTACT -->
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">09</span>
+      <span class="section-label">— CONTACT</span>
+      <span class="section-line"></span>
+    </div>
+
+    <h2 class="contact-title">
+      <span class="line-mask"><span class="line">LET'S BUILD</span></span>
+      <span class="line-mask"><span class="line line-outline">SOMETHING.</span></span>
+    </h2>
+
+    <p class="contact-sub split-lines">Have an idea? Let's create something meaningful.</p>
+
+    <a href="mailto:pranshul.suthar@example.com" class="btn btn-huge magnetic reveal-up" data-cursor="CLICK">
+      <span class="btn-text">GET IN TOUCH</span><span class="btn-arrow">→</span>
+    </a>
+
+    <div class="socials" id="socials">
+      <a href="https://github.com/Pranshulsuthar" target="_blank" rel="noopener" class="social magnetic-row reveal-up" data-cursor="OPEN">
+        <span class="social-num">01</span>
+        <span class="social-label"><span class="social-label-inner">GITHUB</span></span>
+        <span class="social-handle">@Pranshulsuthar</span>
+        <span class="social-arrow">↗</span>
+        <span class="social-line" aria-hidden="true"></span>
+      </a>
+      <a href="https://www.linkedin.com/in/pranshul-suthar-461a51297/" class="social magnetic-row reveal-up" style="--d:.06s" data-cursor="OPEN">
+        <span class="social-num">02</span>
+        <span class="social-label"><span class="social-label-inner">LINKEDIN</span></span>
+        <span class="social-handle">@Pranshulsuthar</span>
+        <span class="social-arrow">↗</span>
+        <span class="social-line" aria-hidden="true"></span>
+      </a>
+      <a href="https://www.instagram.com/suthar_pranshul/?__pwa=1" class="social magnetic-row reveal-up" style="--d:.12s" data-cursor="OPEN">
+        <span class="social-num">03</span>
+        <span class="social-label"><span class="social-label-inner">INSTAGRAM</span></span>
+        <span class="social-handle">@Suthar_Pranshul</span>
+        <span class="social-arrow">↗</span>
+        <span class="social-line" aria-hidden="true"></span>
+      </a>
+      <a href="https://x.com/PranshulSuthar" class="social magnetic-row reveal-up" style="--d:.18s" data-cursor="OPEN">
+        <span class="social-num">04</span>
+        <span class="social-label"><span class="social-label-inner">X</span></span>
+        <span class="social-handle">@PranshulSuthar</span>
+        <span class="social-arrow">↗</span>
+        <span class="social-line" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-top reveal-up">
+      <span class="footer-name">PRANSHUL SUTHAR</span>
+      <span class="footer-meta">B.Tech IT • SKIT Jaipur</span>
+    </div>
+    <div class="footer-links reveal-up">
+      <a href="https://github.com/Pranshulsuthar" target="_blank" rel="noopener" data-cursor="OPEN">GitHub</a>
+      <a href="https://www.linkedin.com/in/pranshul-suthar-461a51297/" target="_blank" rel="noopener" data-cursor="OPEN">LinkedIn</a>
+      <a href="https://www.instagram.com/suthar_pranshul/?__pwa=1" target="_blank" rel="noopener" data-cursor="OPEN">Instagram</a>
+      <a href="https://x.com/PranshulSuthar" target="_blank" rel="noopener" data-cursor="OPEN">X</a>
+    </div>
+    <div class="footer-bottom reveal-up">
+      <span>© 2026 PRANSHUL SUTHAR</span>
+      <a href="#hero" class="back-top" data-cursor="TOP">BACK TO TOP ↑</a>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
