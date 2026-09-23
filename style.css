@@ -666,29 +666,33 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 }
 
 .project-visual{
-  position:relative;overflow:hidden;display:grid;place-items:center;
+  position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
   background:#0a0a0a;
-  padding:clamp(20px,2.6vw,40px);
+  padding:clamp(16px,2.2vw,32px);
+  min-width:0;min-height:0;
 }
 .project-shot{
   position:relative;width:100%;height:100%;
+  max-width:100%;max-height:100%;
   border:1px solid rgba(255,255,255,.18);
   border-radius:12px;overflow:hidden;
   background:#0b0b0b;
+  display:flex;align-items:center;justify-content:center;
   box-shadow:0 24px 50px rgba(0,0,0,.5);
   transition:border-color .45s var(--ease),box-shadow .45s var(--ease),transform .45s var(--ease);
 }
 .project:hover .project-shot{
   border-color:rgba(255,255,255,.38);
   box-shadow:0 28px 56px rgba(0,0,0,.6);
-  transform:scale(1.02);
+  transform:none;
 }
 .project-shot img{
-  width:100%;height:100%;object-fit:cover;object-position:top left;
-  display:block;
+  width:100%;height:100%;
+  object-fit:contain;object-position:center center;
+  display:block;background:#0b0b0b;
   transition:transform .45s var(--ease);
 }
-.project:hover .project-shot img{transform:scale(1.02)}
+.project:hover .project-shot img{transform:none}
 
 @media(max-width:900px){
   .work{height:auto}
@@ -700,7 +704,17 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
   .project{flex:none;width:100%;height:auto;min-height:auto}
   .project-inner{grid-template-columns:1fr}
   .project-info{border-right:0;border-bottom:1px solid var(--line)}
-  .project-visual{min-height:240px;aspect-ratio:16/10}
+  .project-visual{
+    min-height:0;aspect-ratio:auto;height:auto;
+    padding:16px;
+  }
+  .project-shot{
+    height:auto;aspect-ratio:16/10;width:100%;
+  }
+  .project-shot img{
+    width:100%;height:100%;
+    object-fit:contain;object-position:center center;
+  }
   .project-shot,.project:hover .project-shot{transform:none}
   .project-soon .project-desc{max-width:none}
   .hero-main{grid-template-columns:1fr min(42vw,300px)}
@@ -1304,7 +1318,9 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
   .project{flex:none;width:100%;height:auto;min-height:auto}
   .project-inner{grid-template-columns:1fr}
   .project-info{border-right:0;border-bottom:1px solid var(--line);padding:22px 18px}
-  .project-visual{min-height:200px;aspect-ratio:16/10;padding:16px}
+  .project-visual{min-height:0;aspect-ratio:auto;height:auto;padding:14px}
+  .project-shot{height:auto;aspect-ratio:16/11;width:100%}
+  .project-shot img{width:100%;height:100%;object-fit:contain;object-position:center center}
   .project-shot,.project:hover .project-shot{transform:none}
   .project-desc{max-width:none}
   .project-meta-row{gap:10px 12px}
