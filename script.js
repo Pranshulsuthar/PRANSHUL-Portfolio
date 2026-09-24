@@ -107,7 +107,7 @@ function initNav() {
   };
   tickTime(); setInterval(tickTime, 20000);
 
-  // smooth anchors
+  // smooth anchors — works from nav, menu rows, footer, anywhere
   $$('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
@@ -115,6 +115,7 @@ function initNav() {
       const t = document.querySelector(id);
       if (!t) return;
       e.preventDefault();
+      if (ov.classList.contains('open')) closeMenu();
       window.scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduced ? 'auto' : 'smooth' });
     });
   });
