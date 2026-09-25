@@ -15,18 +15,19 @@ const isMobile = () => innerWidth < 900;
 const reduced  = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ============================================================
-   1. PRELOADER
+   1. PRELOADER — particle name assembly
    ============================================================ */
 function initPreloader() {
-  const pre   = $('#preloader');
-  const count = $('#preCount');
-  const bar   = $('#preBar');
-  const hero  = $('#hero');
+  const pre    = $('#preloader');
+  const hero   = $('#hero');
+  const canvas = $('#preCanvas');
 
   document.body.classList.add('no-scroll');
 
-  let n = 0;
+  let finished = false;
   const finish = () => {
+    if (finished) return;
+    finished = true;
     pre.classList.add('done');
     document.body.classList.remove('no-scroll');
     hero.classList.add('ready');
@@ -39,17 +40,164 @@ function initPreloader() {
     setTimeout(() => pre.remove(), 900);
   };
 
-  if (reduced) { count.textContent = '100'; bar.style.width = '100%'; finish(); return; }
+  if (reduced || !canvas || !canvas.getContext) {
+    finish();
+    return;
+  }
 
-  const tick = () => {
-    n += Math.max(1, Math.round((100 - n) * 0.06 + Math.random() * 3));
-    if (n >= 100) { n = 100; }
-    count.textContent = String(n).padStart(2, '0');
-    bar.style.width = n + '%';
-    if (n < 100) setTimeout(tick, 34 + Math.random() * 45);
-    else setTimeout(finish, 420);
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0;
+
+  const resize = () => {
+    W = innerWidth; H = innerHeight;
+    canvas.width  = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
-  tick();
+  resize();
+
+  const sampleName = () => {
+    const off = document.createElement('canvas');
+    off.width = W; off.height = H;
+    const o = off.getContext('2d', { willReadFrequently: true });
+    const twoLine = W < 680;
+    const fs = twoLine ? Math.min(W * 0.16, 96) : Math.min(W * 0.085, 110);
+    o.fillStyle = '#fff';
+    o.font = `900 ${fs}px Archivo, system-ui, sans-serif`;
+    o.textAlign = 'center';
+    o.textBaseline = 'middle';
+    if (twoLine) {
+      o.fillText('PRANSHUL', W / 2, H / 2 - fs * 0.55);
+      o.fillText('SUTHAR',   W / 2, H / 2 + fs * 0.55);
+    } else {
+      o.fillText('PRANSHUL SUTHAR', W / 2, H / 2);
+    }
+    const gap = isMobile() ? 4 : 3;
+    const data = o.getImageData(0, 0, W, H).data;
+    const pts = [];
+    for (let y = 0; y < H; y += gap) {
+      for (let x = 0; x < W; x += gap) {
+        if (data[(y * W + x) * 4 + 3] > 140) pts.push({ x, y });
+      }
+    }
+    return pts;
+  };
+
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+  const run = (targets) => {
+    const n = targets.length;
+    if (!n) { setTimeout(finish, 400); return; }
+
+    const maxP = isMobile() ? 1400 : 2800;
+    let pts = targets;
+    if (n > maxP) {
+      const step = Math.ceil(n / maxP);
+      pts = [];
+      for (let i = 0; i < n; i += step) pts.push(targets[i]);
+    }
+
+    const N = pts.length;
+    const P = new Array(N);
+    for (let i = 0; i < N; i++) {
+      const t = pts[i];
+      const kind = Math.random();
+      let sx, sy;
+      if (kind < 0.35) {
+        sx = Math.random() * W;
+        sy = Math.random() < 0.5 ? -30 - Math.random() * H * 0.35 : H + 30 + Math.random() * H * 0.35;
+      } else if (kind < 0.7) {
+        sx = Math.random() < 0.5 ? -30 - Math.random() * W * 0.35 : W + 30 + Math.random() * W * 0.35;
+        sy = Math.random() * H;
+      } else {
+        const a = Math.random() * Math.PI * 2;
+        const r = Math.max(W, H) * (0.4 + Math.random() * 0.5);
+        sx = W / 2 + Math.cos(a) * r;
+        sy = H / 2 + Math.sin(a) * r;
+      }
+      P[i] = {
+        sx, sy,
+        x: sx, y: sy,
+        tx: t.x, ty: t.y,
+        ox: t.x, oy: t.y,
+        delay: Math.random() * 0.35,
+        size: Math.random() < 0.16 ? 1.6 : 1,
+        bx: 0, by: 0, burst: false
+      };
+    }
+
+    const T_IN = 1.7;
+    const T_HOLD = 0.55;
+    const T_OUT = 0.75;
+    const TOTAL = T_IN + T_HOLD + T_OUT;
+    const start = performance.now();
+
+    const frame = (now) => {
+      const el = (now - start) / 1000;
+      ctx.clearRect(0, 0, W, H);
+
+      for (let i = 0; i < N; i++) {
+        const p = P[i];
+        let alpha = 1;
+
+        if (el < T_IN) {
+          const raw = clamp((el - p.delay) / (T_IN * 0.7), 0, 1);
+          const e = easeOut(raw);
+          p.x = lerp(p.sx, p.tx, e);
+          p.y = lerp(p.sy, p.ty, e);
+          alpha = clamp(raw * 2.5, 0, 1);
+        } else if (el < T_IN + T_HOLD) {
+          const wob = (el - T_IN) / T_HOLD;
+          p.x = p.ox + Math.sin(el * 16 + i * 0.9) * 0.5;
+          p.y = p.oy + Math.cos(el * 13 + i * 0.6) * 0.5;
+          alpha = 1 - wob * 0.05;
+        } else {
+          if (!p.burst) {
+            p.burst = true;
+            const a = Math.atan2(p.oy - H / 2, p.ox - W / 2) + (Math.random() - 0.5) * 1.1;
+            const dist = 100 + Math.random() * Math.max(W, H) * 0.5;
+            p.bx = p.ox + Math.cos(a) * dist;
+            p.by = p.oy + Math.sin(a) * dist - 60;
+            p.x = p.ox; p.y = p.oy;
+          }
+          const bu = clamp((el - T_IN - T_HOLD) / T_OUT, 0, 1);
+          const e = easeOut(bu);
+          p.x = lerp(p.ox, p.bx, e);
+          p.y = lerp(p.oy, p.by, e);
+          alpha = 1 - e;
+        }
+
+        if (alpha <= 0.02) continue;
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = p.size > 1 ? '#ffffff' : '#d0d0d0';
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+      }
+
+      ctx.globalAlpha = 1;
+
+      if (el < TOTAL) requestAnimationFrame(frame);
+      else finish();
+    };
+
+    requestAnimationFrame(frame);
+  };
+
+  const begin = () => {
+    if (finished) return;
+    resize();
+    run(sampleName());
+  };
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => setTimeout(begin, 100));
+  } else {
+    setTimeout(begin, 250);
+  }
+
+  setTimeout(finish, 7000);
 }
 
 /* ============================================================
