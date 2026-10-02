@@ -987,7 +987,7 @@ function initFooter() {
   name.addEventListener('mouseenter', () => name.classList.add('is-active'));
   name.addEventListener('mouseleave', () => {
     name.classList.remove('is-active');
-    letters.forEach(l => l.classList.remove('on', 'on-prev', 'wave'));
+    letters.forEach(l => l.classList.remove('on', 'on-prev', 'fl-wave'));
     lastIdx = -1;
   });
 
@@ -1005,12 +1005,12 @@ function initFooter() {
     lastIdx = nearest;
 
     letters.forEach((l, i) => {
-      l.classList.remove('on', 'on-prev', 'wave');
+      l.classList.remove('on', 'on-prev', 'fl-wave');
       if (i === nearest) l.classList.add('on');
       else if (i === nearest - 1) l.classList.add('on-prev');
       else if (i === nearest + 1) l.classList.add('on-prev');
       else if (Math.abs(i - nearest) <= 3) {
-        l.classList.add('wave');
+        l.classList.add('fl-wave');
         l.style.animationDelay = (Math.abs(i - nearest) * 0.05) + 's';
       }
     });
@@ -1018,12 +1018,155 @@ function initFooter() {
 
   name.addEventListener('click', () => {
     letters.forEach((l, i) => {
-      l.classList.remove('wave');
+      l.classList.remove('fl-wave');
       void l.offsetWidth;
       l.style.animationDelay = (i * 0.04) + 's';
-      l.classList.add('wave');
+      l.classList.add('fl-wave');
     });
   });
+}
+
+/* ============================================================
+   15. KINETIC NAME RIBBON — seamless auto marquee
+   ============================================================ */
+function initKinetic() {
+  const row = $('#kineticRow');
+  if (!row || reduced) return;
+
+  const addUnits = (n) => {
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement('span');
+      s.className = 'kinetic-item' + (i % 2 === 1 ? ' outline' : '');
+      s.textContent = 'PRANSHUL SUTHAR';
+      frag.appendChild(s);
+      const star = document.createElement('span');
+      star.className = 'kinetic-star';
+      star.textContent = '✦';
+      frag.appendChild(star);
+    }
+    row.appendChild(frag);
+  };
+
+  row.innerHTML = '';
+  addUnits(8);
+
+  let x = 0;
+  let unitW = 0;
+
+  const measure = () => {
+    const items = row.querySelectorAll('.kinetic-item');
+    if (items.length < 2) return;
+    unitW = items[1].offsetLeft - items[0].offsetLeft;
+    if (unitW > 0 && row.scrollWidth < innerWidth + unitW * 2) addUnits(4);
+    if (unitW > 0) {
+      while (x <= -unitW) x += unitW;
+      while (x > 0) x -= unitW;
+    }
+  };
+  measure();
+  addEventListener('resize', measure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+
+  const tick = () => {
+    x -= 1.6;
+    if (unitW > 0) {
+      while (x <= -unitW) x += unitW;
+      while (x > 0) x -= unitW;
+    }
+    row.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+/* ============================================================
+   15b. SECRET CONSOLE — type PRANSHUL to unlock (mobile: tap logo ×3)
+   ============================================================ */
+function initSecret() {
+  const SECRET = 'pranshul';
+  const hud = $('#keyHud');
+  const dots = $('#keyHudDots');
+  const overlay = $('#consoleOverlay');
+  const closeBtn = $('#consoleClose');
+  if (!overlay) return;
+
+  if (dots) {
+    dots.innerHTML = '';
+    for (let i = 0; i < SECRET.length; i++) {
+      const d = document.createElement('i');
+      d.className = 'key-hud-dot';
+      dots.appendChild(d);
+    }
+  }
+  const dotEls = $$('.key-hud-dot', dots || document.createElement('div'));
+
+  let buf = '';
+  let hudTimer = 0;
+  let open = false;
+
+  const paintDots = () => dotEls.forEach((d, i) => d.classList.toggle('on', i < buf.length));
+  const showHud = () => {
+    if (!hud) return;
+    hud.classList.add('on');
+    clearTimeout(hudTimer);
+    hudTimer = setTimeout(() => hud.classList.remove('on'), 1600);
+  };
+
+  const unlock = () => {
+    if (open) return;
+    open = true;
+    buf = '';
+    paintDots();
+    if (hud) hud.classList.remove('on');
+
+    if (!reduced) {
+      const fl = document.createElement('div');
+      fl.className = 'glitch-flash';
+      document.body.appendChild(fl);
+      setTimeout(() => fl.remove(), 600);
+    }
+
+    overlay.classList.add('on');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+  };
+
+  const close = () => {
+    if (!open) return;
+    open = false;
+    overlay.classList.remove('on');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+  };
+
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && open) { close(); return; }
+    if (open) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key && e.key.length === 1 && /[a-z]/i.test(e.key)) {
+      buf += e.key.toLowerCase();
+      if (buf.length > SECRET.length) buf = buf.slice(-SECRET.length);
+      showHud();
+      paintDots();
+      if (buf.slice(-SECRET.length) === SECRET) unlock();
+    }
+  });
+
+  const logo = $('.nav-logo');
+  if (logo) {
+    let taps = 0;
+    let tapTimer = 0;
+    logo.addEventListener('click', () => {
+      taps++;
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => { taps = 0; }, 900);
+      if (taps >= 3) { taps = 0; unlock(); }
+    });
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
 }
 
 /* ============================================================
@@ -1051,6 +1194,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initButterflies();
   initFooter();
+  initKinetic();
+  initSecret();
 });
 
 })();
