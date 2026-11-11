@@ -644,7 +644,7 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 /* ============================================================
    04 WORK — HORIZONTAL SCROLL
    ============================================================ */
-.work{position:relative;height:480vh;background:var(--near)}
+.work{position:relative;height:600vh;background:var(--near)}
 .work-sticky{
   position:sticky;top:0;height:100vh;overflow:hidden;
   display:flex;flex-direction:column;
